@@ -1,1 +1,1 @@
-web: gunicorn nubis.wsgi --log-file -
+web: gunicorn mychat.wsgi --log-file -
