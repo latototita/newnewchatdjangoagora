@@ -5,7 +5,7 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>MyChat</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{% static 'main.css' %}">
     <!-- <script src='main.js'></script> -->
 </head>
 <body>
@@ -13,7 +13,7 @@
     <main>
         <section id="form-container">
 
-            <img id="logo" src="images/chat-icon.png"/>
+            <img id="logo" src="{% static 'images/chat-icon.png' %}"/>
 
             <div id="welcome-message">
                 <h1>Welcome to MyChat</h1>
