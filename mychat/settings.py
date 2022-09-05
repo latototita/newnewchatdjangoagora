@@ -143,5 +143,6 @@ django_heroku.settings(locals())
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 # This is new
+
 options = DATABASES['default'].get('OPTIONS', {})
 options.pop('sslmode', None)
