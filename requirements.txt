@@ -6,3 +6,4 @@ tzdata==2021.5
 gunicorn
 django_heroku
 whitenoise
+dj_database_url
