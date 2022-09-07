@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-cly%(5-34f8d1pc_fi*l_p@m3^x%#a$!iq(yu=s&&ez%-_pk$3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['lulea.herokuapp.com']
+ALLOWED_HOSTS = ['*']#'lulea.herokuapp.com']
 
 
 # Application definition
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'mychat.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,7 +87,7 @@ DATABASES = {
 '''
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-
+'''
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
