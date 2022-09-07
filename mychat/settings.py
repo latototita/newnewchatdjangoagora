@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-cly%(5-34f8d1pc_fi*l_p@m3^x%#a$!iq(yu=s&&ez%-_pk$3
 DEBUG = True
 
 
-SESSION_COOKIE_DOMAIN = '.pearlmart.ml'
+SESSION_COOKIE_DOMAIN = '.soccervibes.ml'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
@@ -37,7 +37,7 @@ SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-ALLOWED_HOSTS = ['.pearlmart.ml','www.pearlamrt.ml','pearlmart.ml']
+ALLOWED_HOSTS = ['.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','localhost']
 
 # Application definition
 
