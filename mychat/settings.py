@@ -81,7 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mychat.wsgi.application'
-'''
+
 
 DATABASES = {
     'default': {
@@ -103,7 +103,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
+
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
