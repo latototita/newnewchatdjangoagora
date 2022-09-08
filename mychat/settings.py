@@ -36,7 +36,7 @@ SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-ALLOWED_HOSTS = ['.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','127.0.0.1']
+ALLOWED_HOSTS = ['.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','127.0.0.1','159.65.51.180']
 
 # Application definition
 
