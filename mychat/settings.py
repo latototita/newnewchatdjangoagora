@@ -36,7 +36,7 @@ SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 '''
-ALLOWED_HOSTS = ['.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','127.0.0.1','159.65.51.180']
+ALLOWED_HOSTS = ['*','.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','127.0.0.1','159.65.51.180']
 
 # Application definition
 
@@ -81,7 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mychat.wsgi.application'
-
+'''
 
 DATABASES = {
     'default': {
@@ -104,7 +104,7 @@ DATABASES = {
     }
 }
 
-
+'''
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 '''
@@ -145,11 +145,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
-'''STATICFILES_DIRS = (
+'''
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 '''

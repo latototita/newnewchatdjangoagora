@@ -6,9 +6,13 @@
     <section id="room-name-wrapper">
         <p>Room Name: <span id="room-name"></span></p>
     </section>
-
+    <div class="row">
+        
+   <div id="video-streams"></div>
+</div>
+    <!--
     <section id="video-streams"></section>
-
+    -->
     <section id="controls-wrapper">
         <div class="icon-wrapper">
             <img class="control-icon" id="mic-btn" src="{% static 'images/microphone.svg' %}" />
@@ -27,4 +31,5 @@
 
 <script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/streams.js' %}" ></script>
+
 {% endblock content %}
