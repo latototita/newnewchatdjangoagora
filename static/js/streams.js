@@ -30,10 +30,8 @@ let joinAndDisplayLocalStream = async () => {
 
     let player = `
                     <div style="max-width: 500px;
-  margin: auto;
   border: 3px solid #73AD21;" class="video-container" id="user-container-${UID}">
                      <div style="max-width: 500px;
-  margin: auto;
   border: 3px solid #73AD21;" class="video-player" id="user-${UID}"></div>
                      <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
                   </div>
@@ -58,10 +56,10 @@ let handleUserJoined = async (user, mediaType) => {
 
         player = `
         <div  style="max-width: 500px;
-  margin: auto;
+  
   border: 3px solid #73AD21;" class="video-container" id="user-container-${user.uid}">
             <div style="max-width: 500px;
-  margin: auto;
+  
   border: 3px solid #73AD21;" class="video-player" id="user-${user.uid}"></div>
             <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
         </div>
