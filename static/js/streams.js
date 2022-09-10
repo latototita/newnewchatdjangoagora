@@ -29,9 +29,9 @@ let joinAndDisplayLocalStream = async () => {
     let member = await createMember()
 
     let player = `<div style="max-width: 500px;
-  border: 3px solid #73AD21;" class="video-container avatar me-3" id="user-container-${UID}">
+  border: 3px solid #73AD21;" onclick="resetImg()" class="video-container avatar me-3" id="user-container-${UID}">
                      <div style="max-width: 500px;
-  border: 3px solid #73AD21;" class="video-player avatar me-3" id="user-${UID}"></div>
+  border: 3px solid #73AD21;" onclick="resetImg()" class="video-player avatar me-3" id="user-${UID}"></div>
                      <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
                   </div>
                   `
@@ -56,10 +56,10 @@ let handleUserJoined = async (user, mediaType) => {
         player = `
         <div  style="max-width: 500px;
   
-  border: 3px solid #73AD21;" class="video-container avatar me-3" id="user-container-${user.uid}">
+  border: 3px solid #73AD21;" onclick="resetImg()" class="video-container avatar me-3" id="user-container-${user.uid}">
             <div style="max-width: 500px;
   
-  border: 3px solid #73AD21;" class="video-player avatar me-3" id="user-${user.uid}"></div>
+  border: 3px solid #73AD21;"  onclick="resetImg()" class="video-player avatar me-3" id="user-${user.uid}"></div>
             <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
         </div>
         `
