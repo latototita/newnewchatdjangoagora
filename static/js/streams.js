@@ -10,7 +10,6 @@ const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
 
 let localTracks = []
 let remoteUsers = {}
-let ShareScreen = []
 
 let joinAndDisplayLocalStream = async () => {
     document.getElementById('room-name').innerText = CHANNEL
@@ -26,10 +25,6 @@ let joinAndDisplayLocalStream = async () => {
     }
     
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
-    ShareScreen= await AgoraRTC.createScreenVideoTrack({
-        encoderConfig: "1080p_1",
-    }, "disable").then(([screenVideoTrack, screenAudioTrack])=> {
-   /** ... **/ });
     let member = await createMember()
 
     let player = `<div style="
@@ -42,9 +37,7 @@ let joinAndDisplayLocalStream = async () => {
     
     document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
     localTracks[1].play(`user-${UID}`)
-    ShareScreen[1].play(`user-${UID}`)
     await client.publish([localTracks[0], localTracks[1]])
-    await client.publish(ShareScreen[0], ShareScreen[1])
 }
 
 let handleUserJoined = async (user, mediaType) => {
@@ -155,7 +148,7 @@ joinAndDisplayLocalStream()
 document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
-document.getElementById('share-btn').addEventListener('click', SharingScreen)
+/*document.getElementById('share-btn').addEventListener('click', SharingScreen)
 
 
 let SharingScreen = async (e) => {
@@ -168,3 +161,4 @@ let SharingScreen = async (e) => {
         e.target.style.backgroundColor = 'rgb(255, 80, 80, 1)'
     }
 }
+*/
