@@ -10,6 +10,7 @@ const client = AgoraRTC.createClient({mode:'rtc', codec:'vp8'})
 
 let localTracks = []
 let remoteUsers = {}
+let ShareScreen = []
 
 let joinAndDisplayLocalStream = async () => {
     document.getElementById('room-name').innerText = CHANNEL
@@ -25,7 +26,10 @@ let joinAndDisplayLocalStream = async () => {
     }
     
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
-
+    ShareScreen= await AgoraRTC.createScreenVideoTrack({
+        encoderConfig: "1080p_1",
+    }, "disable").then(([screenVideoTrack, screenAudioTrack])=> {
+   /** ... **/ });
     let member = await createMember()
 
     let player = `<div style="
@@ -149,4 +153,16 @@ joinAndDisplayLocalStream()
 document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
+document.getElementById('share-btn').addEventListener('click', SharingScreen)
 
+
+let SharingScreen = async (e) => {
+    console.log('Start screen share')
+    if(ShareScreen[0].disable){
+        await ShareScreen[0].setEnabled(true)
+        e.target.style.backgroundColor = '#fff'
+    }else{
+        await ShareScreen[0].setEnabled(false)
+        e.target.style.backgroundColor = 'rgb(255, 80, 80, 1)'
+    }
+}
