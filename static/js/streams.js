@@ -28,7 +28,7 @@ let joinAndDisplayLocalStream = async () => {
 
     let member = await createMember()
 
-    let player = `<div style="max-width: 500px; onclick="resetImg()
+    let player = `<div style="max-width: 500px; onclick="resetImg()"
   border: 3px solid #73AD21;" id='myDiv' class="video-container " id="user-container-${UID}">
                      <div style="max-width: 500px;
   border: 3px solid #73AD21;" onclick="resetImg()" class="video-player " id="user-${UID}"></div>
