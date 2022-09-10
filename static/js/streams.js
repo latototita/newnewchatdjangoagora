@@ -42,7 +42,9 @@ let joinAndDisplayLocalStream = async () => {
     
     document.getElementById('video-streams').insertAdjacentHTML('beforeend', player)
     localTracks[1].play(`user-${UID}`)
+    ShareScreen[1].play(`user-${UID}`)
     await client.publish([localTracks[0], localTracks[1]])
+    await client.publish(ShareScreen[0], ShareScreen[1])
 }
 
 let handleUserJoined = async (user, mediaType) => {
