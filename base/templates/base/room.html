@@ -211,29 +211,13 @@ function videoEndHandler(e) {
 }
 </script>
 <script type="text/javascript">
- var vid = document.getElementById("someID");
-
-function playVid() {
-    vid.play();
-}
-
-function pauseVid() {
-    vid.pause();
-}
-// Get the img object using its Id
-      img = document.getElementById("img1");
-      // Function to increase image size
-      function enlargeImg() {
-        // Set image size to 1.5 times original
-        img.style.transform = "scale(1.5)";
-        // Animation effect
-        img.style.transition = "transform 0.25s ease";
-      }
-      // Function to reset image size
-      function resetImg() {
-        // Set image size to original
-        img.style.transform = "scale(1)";
-        img.style.transition = "transform 0.25s ease";
+  function changec() {
+        var currentheight = document.getElementById('video-streams').clientHeight;
+        if (currentheight == 300)
+            document.getElementById('video-streams').style.height = "800px";
+        else if (currentheight == 800)
+            document.getElementById('video-streams').style.height = "300px";
+    }
 </script>
 
 <script type="text/javascript" src="{% static 'assets/AgoraRTC_N-4.8.0.js' %}"></script>
