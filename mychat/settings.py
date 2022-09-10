@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-cly%(5-34f8d1pc_fi*l_p@m3^x%#a$!iq(yu=s&&ez%-_pk$3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-'''
+
 SESSION_COOKIE_DOMAIN = '.soccervibes.ml'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -35,7 +35,7 @@ SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-'''
+
 ALLOWED_HOSTS = ['*','.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','127.0.0.1','159.65.51.180']
 
 # Application definition
@@ -153,8 +153,8 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-
 '''
+
 #  Add configuration for static files storage using whitenoise
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
