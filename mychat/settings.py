@@ -81,7 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mychat.wsgi.application'
-'''
+
 
 DATABASES = {
     'default': {
@@ -104,7 +104,7 @@ DATABASES = {
     }
 }
 
-'''
+
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 '''
@@ -153,8 +153,8 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-'''
 
+'''
 #  Add configuration for static files storage using whitenoise
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
