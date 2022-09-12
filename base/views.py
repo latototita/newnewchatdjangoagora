@@ -6,8 +6,10 @@ from agora_token_builder import RtcTokenBuilder
 from .models import RoomMember
 import json
 from django.views.decorators.csrf import csrf_exempt
-
-
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .forms import RegistrationForm
 
 # Create your views here.
 
@@ -68,11 +70,7 @@ def deleteMember(request):
     return JsonResponse('Member deleted', safe=False)
 
 
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from Main.models import *
-from Main.forms import *
+
 
 # Create your views here.
 def signin(request):
