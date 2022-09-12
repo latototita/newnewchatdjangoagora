@@ -81,7 +81,7 @@ TEMPLATES = [
         },
     },
 ]
-
+'''
 WSGI_APPLICATION = 'mychat.wsgi.application'
 PUSHER_APP_ID="1475979"
 PUSHER_KEY="bd7d7b9f573e00813c6e"
@@ -89,7 +89,7 @@ PUSHER_SECRET="78077a7ae034f20aae6a"
 PUSHER_CLUSTER="eu"
 AGORA_APP_ID="014a1c5003a54d1aa470493990405207"
 AGORA_APP_CERTIFICATE="f4b72a52122e4242874a4fb431097340"
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -100,10 +100,10 @@ DATABASES = {
         'PORT': '',
     }
 }
-
+'''
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
