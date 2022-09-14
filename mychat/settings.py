@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-cly%(5-34f8d1pc_fi*l_p@m3^x%#a$!iq(yu=s&&ez%-_pk$3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+'''
 SESSION_COOKIE_DOMAIN = '.soccervibes.ml'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -37,8 +37,8 @@ SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
-ALLOWED_HOSTS = ['*','.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','127.0.0.1','159.65.51.180']
+'''
+ALLOWED_HOSTS = ['*','.soccervibes.ml','www.soccervibes.ml','soccervibes.ml','127.0.0.1','159.65.51.180','localhost']
 
 # Application definition
 
@@ -83,13 +83,7 @@ TEMPLATES = [
 ]
 '''
 WSGI_APPLICATION = 'mychat.wsgi.application'
-PUSHER_APP_ID="1475979"
-PUSHER_KEY="bd7d7b9f573e00813c6e"
-PUSHER_SECRET="78077a7ae034f20aae6a"
-PUSHER_CLUSTER="eu"
-AGORA_APP_ID="014a1c5003a54d1aa470493990405207"
-AGORA_APP_CERTIFICATE="f4b72a52122e4242874a4fb431097340"
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -111,7 +105,7 @@ DATABASES = {
     }
 }
 
-
+'''
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 '''
@@ -152,15 +146,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
-'''
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-'''
+
 
 #  Add configuration for static files storage using whitenoise
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

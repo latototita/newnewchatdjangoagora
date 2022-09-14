@@ -25,14 +25,12 @@ let joinAndDisplayLocalStream = async () => {
     }
     
     localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
-
     let member = await createMember()
 
-    let player = `
-                    <div style="max-width: 500px;
-  border: 3px solid #73AD21;" class="video-container col-xl-3 col-md-6 mb-xl-0 mb-4" id="user-container-${UID}">
-                     <div style="max-width: 500px;
-  border: 3px solid #73AD21; " class="video-player col-xl-3 col-md-6 mb-xl-0 mb-4" id="user-${UID}"></div>
+    let player = `<div style="
+  border: 3px solid #73AD21;" class="video-container " id="user-container-${UID}">
+                     <div style="
+  border: 3px solid #73AD21;"  class="video-player " id="user-${UID}"></div>
                      <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
                   </div>
                   `
@@ -53,14 +51,14 @@ let handleUserJoined = async (user, mediaType) => {
         }
 
         let member = await getMember(user)
-
+/*col-lg-3 col-md-4  col-sm-6*/
         player = `
-        <div  style="max-width: 500px;
+        <div  style=" 
   
-  border: 3px solid #73AD21;" class="video-container col-xl-3 col-md-6 mb-xl-0 mb-4" id="user-container-${user.uid}">
-            <div style="max-width: 500px;
+  border: 3px solid #73AD21;"  class="video-container " id="user-container-${user.uid}">
+            <div style="
   
-  border: 3px solid #73AD21;" class="video-player col-xl-3 col-md-6 mb-xl-0 mb-4" id="user-${user.uid}"></div>
+  border: 3px solid #73AD21;"   class="video-player " id="user-${user.uid}"></div>
             <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
         </div>
         `
@@ -150,4 +148,17 @@ joinAndDisplayLocalStream()
 document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)
 document.getElementById('camera-btn').addEventListener('click', toggleCamera)
 document.getElementById('mic-btn').addEventListener('click', toggleMic)
+/*document.getElementById('share-btn').addEventListener('click', SharingScreen)
 
+
+let SharingScreen = async (e) => {
+    console.log('Start screen share')
+    if(ShareScreen[0].disable){
+        await ShareScreen[0].setEnabled(true)
+        e.target.style.backgroundColor = '#fff'
+    }else{
+        await ShareScreen[0].setEnabled(false)
+        e.target.style.backgroundColor = 'rgb(255, 80, 80, 1)'
+    }
+}
+*/

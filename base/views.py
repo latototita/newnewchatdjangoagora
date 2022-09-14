@@ -68,7 +68,14 @@ def deleteMember(request):
     )
     member.delete()
     return JsonResponse('Member deleted', safe=False)
-
+@login_required
+def dashboard(request):
+    if request.user.is_authenticated:
+        user=User.objects.get(id=request.user.id)
+    else:
+        user=None
+    context={'user':user}
+    return render(request,'base/profile.html',context)
 
 
 
