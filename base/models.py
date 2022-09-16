@@ -1,5 +1,10 @@
 from django.db import models
-
+from django.contrib.auth.models import User
+# Create your models here.
+class Photo(models.Model):
+    photo=models.ImageField()
+    key=models.ForeignKey(
+        User, on_delete=models.CASCADE)
 # Create your models here.
 
 class RoomMember(models.Model):

@@ -124,3 +124,19 @@ def Logout(request):
     logout(request)
     messages.success(request, 'You have Signed Out Successfully')
     return redirect('profile')
+
+
+def changepic(request):
+    form=ProfilePicForm()
+    if response.method=="POST":
+        form=ProfilePicForm(response.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Successfully Registered,Please log into your Account to Make Orders')
+            return redirect('dashboard')
+        else:
+            messages.success(request, f'Form Invalid')
+            return redirect('changepic')
+
+    context={'form':form}
+    return render(response,'base/change.html',context)
