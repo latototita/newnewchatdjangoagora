@@ -97,12 +97,12 @@ def signin(request):
         else:
             messages.success(request, 'Username or Password Incorrect!')
             context={}
-            return render(request,'sign-in.html',context)
+            return render(request,'base/sign-in.html',context)
     context={}
-    return render(request,'sign-in.html',context)
+    return render(request,'base/sign-in.html',context)
 def signup(response):
     if response.method=="POST":
-        form=CustomUserCreationForm(response.POST)
+        form=RegistrationForm(response.POST)
         if form.is_valid():
             if User.objects.filter(email=form.cleaned_data['email']):
                 messages.success(response, f'Email already in use, Please use a different Email')
@@ -114,9 +114,9 @@ def signup(response):
             messages.success(response, f'Successfully Registered,Please log into your Account to Make Orders')
             return redirect('login')
     else:
-        form=CustomUserCreationForm()
+        form=RegistrationForm()
     context={'form':form}
-    return render(response,'sign-up.html',context)
+    return render(response,'base/sign-up.html',context)
 
 
 @login_required(login_url='login')
@@ -125,7 +125,7 @@ def Logout(request):
     messages.success(request, 'You have Signed Out Successfully')
     return redirect('profile')
 
-
+@login_required(login_url='login')
 def changepic(request):
     form=ProfilePicForm()
     if response.method=="POST":

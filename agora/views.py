@@ -21,7 +21,7 @@ pusher_client = Pusher(app_id=os.environ.get('PUSHER_APP_ID'),
                        )
 
 
-@login_required(login_url='/admin/')
+@login_required(login_url='login')
 def index(request):
     User = get_user_model()
     all_users = User.objects.exclude(id=request.user.id).only('id', 'username')
