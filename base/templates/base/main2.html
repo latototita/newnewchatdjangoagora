@@ -24963,7 +24963,7 @@ pre[class*="language-"] {
             <div class="collapse navbar-collapse" id="navigation">
               <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="/dashboard">
+                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{% url 'base:dashboard' %}">
                     <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
                     Dashboard
                   </a>
@@ -24975,13 +24975,13 @@ pre[class*="language-"] {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="/signup">
+                  <a class="nav-link me-2" href="{% url 'base:signup' %}">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                     Sign Up
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="/signin">
+                  <a class="nav-link me-2" href="{% url 'base:login' %}">
                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
                     Sign In
                   </a>
@@ -24998,6 +24998,7 @@ pre[class*="language-"] {
       </div>
     </div>
   </div>
+  {% include 'base/messages.html' %}
 {% block content %}
 {% endblock %}
 <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->

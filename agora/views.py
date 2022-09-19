@@ -11,7 +11,7 @@ from django.shortcuts import render
 from .agora_key.RtcTokenBuilder import RtcTokenBuilder, Role_Attendee
 from pusher import Pusher
 
-
+ 
 # Instantiate a Pusher Client
 pusher_client = Pusher(app_id=os.environ.get('PUSHER_APP_ID'),
                        key=os.environ.get('PUSHER_KEY'),

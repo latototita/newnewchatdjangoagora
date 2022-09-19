@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 import random
 import time
@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import RegistrationForm
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -68,13 +69,23 @@ def deleteMember(request):
     )
     member.delete()
     return JsonResponse('Member deleted', safe=False)
-@login_required
+
 def dashboard(request):
     if request.user.is_authenticated:
         user=User.objects.get(id=request.user.id)
     else:
         user=None
-    context={'user':user}
+
+    all_users = User.objects.exclude(id=request.user.id).only('id', 'username')
+    pics={}
+    for user in all_users:
+        try:
+            pic=Photo.objects.get(key=user)
+        else:
+            pic=None
+        pics=append(pic)
+    context={'user':user,'allUsers': all_users}
+    
     return render(request,'base/profile.html',context)
 
 
@@ -93,7 +104,7 @@ def signin(request):
                 return redirect(request.POST['next'])
             else:
                 messages.success(request, f'Welcome, {username}.You have Signed In Successfully')
-                return redirect('dashboard')
+                return redirect('base:dashboard')
         else:
             messages.success(request, 'Username or Password Incorrect!')
             context={}
@@ -140,3 +151,13 @@ def changepic(request):
 
     context={'form':form}
     return render(response,'base/change.html',context)
+
+'''
+def search_user(request):
+    if request.method=="POST":
+        searched=request.POST['searched']
+        try:
+            multiple_q=Q(Q(username__icontains=searched))
+            users_present=User.objects.filter(multiple_q).order_by('?')
+
+    '''

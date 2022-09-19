@@ -1,19 +1,22 @@
-{% extends 'base/base.html' %}
+{% extends 'base/main2.html' %}
 {% load static %}
-{% block body %}
+{% block content %}
 
   <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2">
       <div class="container-fluid py-1">
         <nav aria-label="breadcrumb">
+          <br>
+          <br>
+          <br>
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
             
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Advertisement Market</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Untraceble Global Connection </li>
           </ol>
-          <h6 class="text-white font-weight-bolder ms-2">Profile</h6>
+          <h6 class="text-white font-weight-bolder ms-2">Dashboard</h6>
         </nav>
-        <div class="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2" id="navbar">
+        <!--<div class="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group">
               <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
@@ -54,7 +57,7 @@
                 </a>
               </a>
             </li>
-            <li class="nav-item px-3 d-flex align-items-center">
+           <li class="nav-item px-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0">
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
@@ -132,13 +135,14 @@
                 </li>
               </ul>
             </li>
+          -->
           </ul>
         </div>
       </div>
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid">
-      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('../assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
+      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('/static/assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
         <span class="mask bg-gradient-primary opacity-6"></span>
       </div>
       <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
@@ -150,24 +154,20 @@
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">
+              
+              {% if request.user.is_authenticated %}
               <h5 class="mb-1">
                 {{ user.username }}
               </h5>
-              {% if prime == True %}
               <p class="mb-0 font-weight-bold text-sm">
-                PU(Prime User)
-              </p>
-              {% elif advance_prime == True %}
-              <p class="mb-0 font-weight-bold text-sm">
-                APU(Advance Prime User)
-              </p>
-              {% elif advertiser == True %}
-              <p class="mb-0 font-weight-bold text-sm">
-                Advertiser
+                Registered User
               </p>
               {% else %}
+              <h5 class="mb-1">
+                Mr./Mrs. Annoymous
+              </h5>
               <p class="mb-0 font-weight-bold text-sm">
-                Click User
+                Unregistered User
               </p>
               {% endif %}
             </div>
@@ -191,7 +191,7 @@
                         </g>
                       </g>
                     </svg>
-                    <span class="ms-1">App</span>
+                    <span class="ms-1">Video Call</span>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -210,7 +210,7 @@
                         </g>
                       </g>
                     </svg>
-                    <span class="ms-1">Messages</span>
+                    <span class="ms-1">Video Conference</span>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -231,7 +231,7 @@
                         </g>
                       </g>
                     </svg>
-                    <span class="ms-1">Settings</span>
+                    <span class="ms-1">Change Password</span>
                   </a>
                 </li>
               </ul>
@@ -249,46 +249,23 @@
             </div>
             <div class="card-body p-3">
               <div class="row">
-                {% for video in videos %}
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        
-                      
-                      <video id="someID" class="img-fluid shadow border-radius-xl" width="100%" height="480" poster="{% static 'assets/team-3.jpg' %}" controls>
-                        <source src="{{ ad.file.url}}" type="video/mp4">
-    Your browser does not support the video tag.
-                      </video></a>
-                    </div>
-                  </div>
-                </div>
-                {% endfor %}
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-                  <div class="card card-blog card-plain">
-                    <div class="position-relative">
-                      <a class="d-block shadow-xl border-radius-xl">
-                        
-                      
-                      <video id="someID" class="img-fluid shadow border-radius-xl" width="100%" height="480" poster="{% static 'assets/team-3.jpg' %}" controls>
-                        <source src="{{ ad.file.url}}" type="video/mp4">
-    Your browser does not support the video tag.
-</video></a>
-<button onclick="playVid()" class="btn btn-primary btn-lg" data-class="bg-transparent" type="button">Play Video</button>
-<button onclick="pauseVid()" class="btn btn-primary btn-lg" data-class="bg-white" type="button">Pause Video</button>
-<form method="POST" action="/busket#">
-      <input hidden type="text" name='ad' value='{{ad.id}}' >
-        <button type="submit" id="myBtn" name="register_btn" disabled="disabled" class="btn btn-primary btn-lg"><h6>Next Ad</h6></button>
-</form>
-                    </div>
-                  </div>
-                </div>
                 <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
                   <div class="card h-100 card-plain border">
                     <div class="card-body d-flex flex-column justify-content-center text-center">
                       <a href="javascript:;">
                         <i class="fa fa-plus text-secondary mb-3"></i>
-                        <h5 class=" text-secondary"> New project </h5>
+                        <h5 class=" text-secondary"> Join Schedule Cnference </h5>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+
+                  <div class="card h-100 card-plain border">
+                    <div class="card-body d-flex flex-column justify-content-center text-center">
+                      <a href="javascript:;">
+                        <i class="fa fa-plus text-secondary mb-3"></i>
+                        <h5 class=" text-secondary"> Make a Video Call </h5>
                       </a>
                     </div>
                   </div>
@@ -297,7 +274,8 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid py-4">
+      </div>
+    <div class="container-fluid py-4">
       <div class="row">
         <div class="col-12 col-xl-4">
           <div class="card h-100">
@@ -309,20 +287,20 @@
               <ul class="list-group">
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
-                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault" checked>
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">Email me when someone follows me</label>
+                    
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">No data Save with Us</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
-                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault1">
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault1">Email me when someone answers on my post</label>
+                    
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault1">Meeting/Call is completely Private</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
-                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault2" checked>
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">Email me when someone mentions me</label>
+                    
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">End to End Encryption(No one can Listen or Join You Call</label>
                   </div>
                 </li>
               </ul>
@@ -330,19 +308,19 @@
               <ul class="list-group">
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
-                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault3">
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault3">New launches and projects</label>
+                  
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault3">Set Unique and Strong Room Names</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
-                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault4" checked>
+                    
                     <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault4">Monthly product updates</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0 pb-0">
                   <div class="form-check form-switch ps-0">
-                    <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault5">
+                    
                     <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault5">Subscribe to newsletter</label>
                   </div>
                 </li>
@@ -397,76 +375,378 @@
             </div>
             <div class="card-body p-3">
               <ul class="list-group">
+                {% for singleUser in allUsers%}
                 <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                   <div class="avatar me-3">
                     <img src="{% static 'assets/img/kal-visuals-square.jpg' %}" alt="kal" class="border-radius-lg shadow">
                   </div>
                   <div class="d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">Sophie B.</h6>
+                    <h6 class="mb-0 text-sm">{{ singleUser }}.</h6>
                     <p class="mb-0 text-xs">Hi! I need more information..</p>
                   </div>
-                  <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Reply</a>
+                  <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">${getUserOnlineStatus({{singleUser.id}})}</a>
                 </li>
-                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                  <div class="avatar me-3">
-                    <img src="{% static 'assets/img/marie.jpg' %}" alt="kal" class="border-radius-lg shadow">
-                  </div>
-                  <div class="d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">Anne Marie</h6>
-                    <p class="mb-0 text-xs">Awesome work, can you..</p>
-                  </div>
-                  <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Reply</a>
-                </li>
-                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                  <div class="avatar me-3">
-                    <img src="{% static 'assets/img/ivana-square.jpg' %}" alt="kal" class="border-radius-lg shadow">
-                  </div>
-                  <div class="d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">Ivanna</h6>
-                    <p class="mb-0 text-xs">About files I can..</p>
-                  </div>
-                  <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Reply</a>
-                </li>
-                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
-                  <div class="avatar me-3">
-                    <img src="{% static 'assets/img/team-4.jpg' %}" alt="kal" class="border-radius-lg shadow">
-                  </div>
-                  <div class="d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">Peterson</h6>
-                    <p class="mb-0 text-xs">Have a great afternoon..</p>
-                  </div>
-                  <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Reply</a>
-                </li>
-                <li class="list-group-item border-0 d-flex align-items-center px-0">
-                  <div class="avatar me-3">
-                    <img src="{% static 'assets/img/team-3.jpg' %}" alt="kal" class="border-radius-lg shadow">
-                  </div>
-                  <div class="d-flex align-items-start flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">Nick Daniel</h6>
-                    <p class="mb-0 text-xs">Hi! I need more information..</p>
-                  </div>
-                  <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">Reply</a>
-                </li>
+                {% endfor %}
               </ul>
             </div>
           </div>
         </div>
       </div>
-<script type="text/javascript">
-      document.getElementById('someID').addEventListener('ended',videoEndHandler,false);
-function videoEndHandler(e) {
-   document.getElementById("myBtn").disabled = false;
-}
-</script>
-<script type="text/javascript">
- var vid = document.getElementById("someID");
+<!-- Add Scripts -->
 
-function playVid() {
-    vid.play();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/7.0.3/pusher.min.js"></script>
+    <script>
+      window.pusher = new Pusher("420e941c25574fda6378", {
+        authEndpoint: "{% url 'agora:agora-pusher-auth' %}",
+        auth: {
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        },
+      });
+
+      const AUTH_USER = "{{user}}"
+      const AUTH_USER_ID =  "{{request.user.id}}"
+      const CSRF_TOKEN = "{{ csrf_token }}"
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js""
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{% static 'agora/index.js' %}"></script>
+    <script type="text/javascript">
+      const app = new Vue({
+  el: "#app",
+  delimiters: ["${", "}"],
+  data: {
+    callPlaced: false,
+    client: null,
+    localStream: null,
+    mutedAudio: false,
+    mutedVideo: false,
+    userOnlineChannel: null,
+    onlineUsers: [],
+    incomingCall: false,
+    incomingCaller: "",
+    agoraChannel: null,
+  },
+  mounted() {
+    this.initUserOnlineChannel();
+  },
+
+  methods: {
+    initUserOnlineChannel() {
+      const userOnlineChannel = pusher.subscribe("presence-online-channel");
+
+      // Start Pusher Presence Channel Event Listeners
+
+      userOnlineChannel.bind("pusher:subscription_succeeded", (data) => {
+        // From Laravel Echo, wrapper for Pusher Js Client
+        let members = Object.keys(data.members).map((k) => data.members[k]);
+        this.onlineUsers = members;
+      });
+
+      userOnlineChannel.bind("pusher:member_added", (data) => {
+        let user = data.info;
+        // check user availability
+        const joiningUserIndex = this.onlineUsers.findIndex(
+          (data) => data.id === user.id
+        );
+        if (joiningUserIndex < 0) {
+          this.onlineUsers.push(user);
+        }
+      });
+
+      userOnlineChannel.bind("pusher:member_removed", (data) => {
+        let user = data.info;
+        const leavingUserIndex = this.onlineUsers.findIndex(
+          (data) => data.id === user.id
+        );
+        this.onlineUsers.splice(leavingUserIndex, 1);
+      });
+
+      userOnlineChannel.bind("pusher:subscription_error", (err) => {
+        console.log("Subscription Error", err);
+      });
+
+      userOnlineChannel.bind("an_event", (data) => {
+        console.log("a_channel: ", data);
+      });
+
+      userOnlineChannel.bind("make-agora-call", (data) => {
+        // Listen to incoming call. This can be replaced with a private channel
+
+        if (parseInt(data.userToCall) === parseInt(AUTH_USER_ID)) {
+          const callerIndex = this.onlineUsers.findIndex(
+            (user) => user.id === data.from
+          );
+          this.incomingCaller = this.onlineUsers[callerIndex]["name"];
+          this.incomingCall = true;
+
+          // the channel that was sent over to the user being called is what
+          // the receiver will use to join the call when accepting the call.
+          this.agoraChannel = data.channelName;
+        }
+      });
+    },
+
+    getUserOnlineStatus(id) {
+      const onlineUserIndex = this.onlineUsers.findIndex(
+        (data) => data.id === id
+      );
+      if (onlineUserIndex < 0) {
+        return "Offline";
+      }
+      return "Online";
+    },
+
+    async placeCall(id, calleeName) {
+      try {
+        // channelName = the caller's and the callee's id. you can use anything. tho.
+        const channelName = `${AUTH_USER}_${calleeName}`;
+        const tokenRes = await this.generateToken(channelName);
+
+        // // Broadcasts a call event to the callee and also gets back the token
+        let placeCallRes = await axios.post(
+          "/call-user/",
+          {
+            user_to_call: id,
+            channel_name: channelName,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": CSRF_TOKEN,
+            },
+          }
+        );
+
+        this.initializeAgora(tokenRes.data.appID);
+        this.joinRoom(tokenRes.data.token, channelName);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async acceptCall() {
+      const tokenRes = await this.generateToken(this.agoraChannel);
+      this.initializeAgora(tokenRes.data.appID);
+
+      this.joinRoom(tokenRes.data.token, this.agoraChannel);
+      this.incomingCall = false;
+      this.callPlaced = true;
+    },
+
+    declineCall() {
+      // You can send a request to the caller to
+      // alert them of rejected call
+      this.incomingCall = false;
+    },
+
+    generateToken(channelName) {
+      return axios.post(
+        "/token/",
+        {
+          channelName,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": CSRF_TOKEN,
+          },
+        }
+      );
+    },
+
+    /**
+     * Agora Events and Listeners
+     */
+    initializeAgora(agora_app_id) {
+      this.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
+      this.client.init(
+        agora_app_id,
+        () => {
+          console.log("AgoraRTC client initialized");
+        },
+        (err) => {
+          console.log("AgoraRTC client init failed", err);
+        }
+      );
+    },
+
+    async joinRoom(token, channel) {
+      this.client.join(
+        token,
+        channel,
+        AUTH_USER,
+        (uid) => {
+          console.log("User " + uid + " join channel successfully");
+          this.callPlaced = true;
+          this.createLocalStream();
+          this.initializedAgoraListeners();
+        },
+        (err) => {
+          console.log("Join channel failed", err);
+        }
+      );
+    },
+
+    initializedAgoraListeners() {
+      //   Register event listeners
+      this.client.on("stream-published", function (evt) {
+        console.log("Publish local stream successfully");
+        console.log(evt);
+      });
+
+      //subscribe remote stream
+      this.client.on("stream-added", ({ stream }) => {
+        console.log("New stream added: " + stream.getId());
+        this.client.subscribe(stream, function (err) {
+          console.log("Subscribe stream failed", err);
+        });
+      });
+
+      this.client.on("stream-subscribed", (evt) => {
+        // Attach remote stream to the remote-video div
+
+        console.log("incoming remote stream event: ", evt);
+
+        evt.stream.play("remote-video");
+        this.client.publish(evt.stream);
+      });
+
+      this.client.on("stream-removed", ({ stream }) => {
+        console.log(String(stream.getId()));
+        stream.close();
+      });
+
+      this.client.on("peer-online", (evt) => {
+        console.log("peer-online", evt.uid);
+      });
+
+      this.client.on("peer-leave", (evt) => {
+        var uid = evt.uid;
+        var reason = evt.reason;
+        console.log("remote user left ", uid, "reason: ", reason);
+      });
+
+      this.client.on("stream-unpublished", (evt) => {
+        console.log(evt);
+      });
+    },
+
+    createLocalStream() {
+      this.localStream = AgoraRTC.createStream({
+        audio: true,
+        video: true,
+      });
+
+      // Initialize the local stream
+      this.localStream.init(
+        () => {
+          // Play the local stream
+          this.localStream.play("local-video");
+          // Publish the local stream
+          this.client.publish(this.localStream, (err) => {
+            console.log("publish local stream", err);
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    },
+
+    endCall() {
+      this.localStream.close();
+      this.client.leave(
+        () => {
+          console.log("Leave channel successfully");
+          this.callPlaced = false;
+        },
+        (err) => {
+          console.log("Leave channel failed");
+        }
+      );
+      window.pusher.unsubscribe();
+    },
+
+    handleAudioToggle() {
+      if (this.mutedAudio) {
+        this.localStream.unmuteAudio();
+        this.mutedAudio = false;
+      } else {
+        this.localStream.muteAudio();
+        this.mutedAudio = true;
+      }
+    },
+
+    handleVideoToggle() {
+      if (this.mutedVideo) {
+        this.localStream.unmuteVideo();
+        this.mutedVideo = false;
+      } else {
+        this.localStream.muteVideo();
+        this.mutedVideo = true;
+      }
+    },
+  },
+});
+
+    </script>
+    <style type="text/css">
+      main {
+  margin-top: 50px;
 }
 
-function pauseVid() {
-    vid.pause();
+#video-container {
+  width: 700px;
+  height: 500px;
+  max-width: 90vw;
+  max-height: 50vh;
+  margin: 0 auto;
+  border: 1px solid #099dfd;
+  position: relative;
+  box-shadow: 1px 1px 11px #9e9e9e;
+  background-color: #fff;
 }
-</script>
+
+#local-video {
+  width: 30%;
+  height: 30%;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#remote-video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.action-btns {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  margin-left: -50px;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+    </style>
 {% endblock %}
