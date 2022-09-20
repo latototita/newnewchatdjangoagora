@@ -81,7 +81,7 @@ def dashboard(request):
     for user in all_users:
         try:
             pic=Photo.objects.get(key=user)
-        else:
+        except:
             pic=None
         pics=append(pic)
     context={'user':user,'allUsers': all_users}
