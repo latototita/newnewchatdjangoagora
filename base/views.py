@@ -8,14 +8,36 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.contrib.auth.models import User
+from .models import User
 from .forms import RegistrationForm
 from django.contrib.auth import authenticate, login, logout
+import os
+import time
+import json
+
+from django.http.response import JsonResponse
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+
+from django.shortcuts import render
+
+from .agora_key.RtcTokenBuilder import RtcTokenBuilder, Role_Attendee
+from pusher import Pusher
+
+ 
+# Instantiate a Pusher Client
+pusher_client = Pusher(app_id=os.environ.get('PUSHER_APP_ID'),
+                       key=os.environ.get('PUSHER_KEY'),
+                       secret=os.environ.get('PUSHER_SECRET'),
+                       ssl=True,
+                       cluster=os.environ.get('PUSHER_CLUSTER')
+                       )
 
 # Create your views here.
 
 def lobby(request):
-    return render(request, 'base/lobby.html')
+    context={'conference':'conference'}
+    return render(request, 'base/lobby.html',context)
 
 def room(request):
     return render(request, 'base/room.html')
@@ -69,21 +91,14 @@ def deleteMember(request):
     )
     member.delete()
     return JsonResponse('Member deleted', safe=False)
-
+@login_required(login_url='base:login')
 def dashboard(request):
     if request.user.is_authenticated:
         user=User.objects.get(id=request.user.id)
     else:
         user=None
 
-    all_users = User.objects.exclude(id=request.user.id).only('id', 'username')
-    pics={}
-    for user in all_users:
-        try:
-            pic=Photo.objects.get(key=user)
-        except:
-            pic=None
-        pics=append(pic)
+    all_users = User.objects.all()#exclude(id=request.user.id).only('id', 'username')
     context={'user':user,'allUsers': all_users}
     
     return render(request,'base/profile.html',context)
@@ -123,20 +138,20 @@ def signup(response):
                 return render(response,'signup.html',)
             form.save()
             messages.success(response, f'Successfully Registered,Please log into your Account to Make Orders')
-            return redirect('login')
+            return redirect('base:login')
     else:
         form=RegistrationForm()
     context={'form':form}
     return render(response,'base/sign-up.html',context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='base:login')
 def Logout(request):
     logout(request)
     messages.success(request, 'You have Signed Out Successfully')
     return redirect('profile')
 
-@login_required(login_url='login')
+@login_required(login_url='base:login')
 def changepic(request):
     form=ProfilePicForm()
     if response.method=="POST":
@@ -161,3 +176,61 @@ def search_user(request):
             users_present=User.objects.filter(multiple_q).order_by('?')
 
     '''
+
+
+
+@login_required(login_url='base:login')
+def index(request):
+    User = get_user_model()
+    all_users = User.objects.exclude(id=request.user.id).only('id', 'username')
+    context={'allUsers': all_users,'call':'call'}
+    return render(request, 'base/lobby.html', context)
+
+
+def pusher_auth(request):
+    payload = pusher_client.authenticate(
+        channel=request.POST['channel_name'],
+        socket_id=request.POST['socket_id'],
+        custom_data={
+            'user_id': request.user.id,
+            'user_info': {
+                'id': request.user.id,
+                'name': request.user.username
+            }
+        })
+    return JsonResponse(payload)
+
+
+def generate_agora_token(request):
+    appID = os.environ.get('AGORA_APP_ID')
+    appCertificate = os.environ.get('AGORA_APP_CERTIFICATE')
+    channelName = json.loads(request.body.decode(
+        'utf-8'))['channelName']
+    userAccount = request.user.username
+    expireTimeInSeconds = 3600
+    currentTimestamp = int(time.time())
+    privilegeExpiredTs = currentTimestamp + expireTimeInSeconds
+
+    token = RtcTokenBuilder.buildTokenWithAccount(
+        appID, appCertificate, channelName, userAccount, Role_Attendee, privilegeExpiredTs)
+
+    return JsonResponse({'token': token, 'appID': appID})
+
+
+def call_user(request):
+    body = json.loads(request.body.decode('utf-8'))
+
+    user_to_call = body['user_to_call']
+    channel_name = body['channel_name']
+    caller = request.user.id
+
+    pusher_client.trigger(
+        'presence-online-channel',
+        'make-agora-call',
+        {
+            'userToCall': user_to_call,
+            'channelName': channel_name,
+            'from': caller
+        }
+    )
+    return JsonResponse({'message': 'call has been placed'})

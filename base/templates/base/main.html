@@ -4,12 +4,41 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+  <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Build A Scalable Video Chat Application With Agora"
+    />
+    <meta
+      name="keywords"
+      content="Video Call, Agora, Django, Real Time Engagement"
+    />
+    <meta name="author" content="Kofi Obrasi Ocran" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'agora/index.css' %}"
+    />
+    <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.3.1.js"></script>
   <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
   <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+
   <title>
-    Pearl Peer 
+    Peermax 
   </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"  rel="stylesheet" />
+  <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
+  <script src="{% static 'js/main.js' %}"></script>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"  rel="stylesheet" />
   <style type="text/css">
@@ -24946,7 +24975,7 @@ pre[class*="language-"] {
         <nav class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
           <div class="container-fluid">
             <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="/profile">
-              Pearl Peer
+              Peermax
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2">
@@ -24970,13 +24999,13 @@ pre[class*="language-"] {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="/signup">
+                  <a class="nav-link me-2" href="{% url 'base:signup' %}">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                     Sign Up
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="/signin">
+                  <a class="nav-link me-2" href="{% url 'base:login' %}">
                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
                     Sign In
                   </a>

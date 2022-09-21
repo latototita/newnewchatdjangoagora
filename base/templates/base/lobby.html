@@ -1,7 +1,7 @@
-{% extends 'base/main.html' %}
+{% extends 'base/main2.html' %}
 {% load static %}
 {% block content %}
-
+{% if conference %}
 <main class="main-content  mt-0">
     <section>
       <div class="page-header min-vh-75">
@@ -10,12 +10,12 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
-                  <h3 class="font-weight-bolder text-info text-gradient">Welcome to This Video Conference</h3>
-                  <p class="mb-0">A Test drive Organized by Pearl-Mart!</p>
-                  <p class="mb-0">Its Basic for Now,Enjoy the Experience!</p>
+                  <h3 class="font-weight-bolder text-info text-gradient">Peermax Welcomes You</h3>
+                  <p class="mb-0">Set up/ Join already Created Room!</p>
+                  <p class="mb-0">Enjoy the Experience!, Remember its completely free</p>
                 </div>
                 <div class="card-body">
-                    <form id="form" role="form">
+                    <form id="form" role="form" method="POST">
                         <div class="form-field mb-3">
                             <label>Room:</label>
                             <input name="room" class="form-control" placeholder="Enter a room name..."  style="text-transform:uppercase"/>
@@ -34,13 +34,13 @@
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <a href="javascript:;" class="text-info text-gradient font-weight-bold">Sign up</a>
+                    <a href="{% url 'base:singup' %}" class="text-info text-gradient font-weight-bold">Sign up</a>
                   </p>
                 </div>
             </div>
             <div class="row px-xl-5 px-sm-4 px-3">
               <div class="col-3 ms-auto px-1">
-                <a class="btn btn-outline-light w-100" href="javascript:;">
+                <a class="btn btn-outline-light w-100" href="{% url 'base:index' %}">
                   <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink32">
                     <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                       <g id="facebook-3" transform="translate(3.000000, 3.000000)" fill-rule="nonzero">
@@ -52,7 +52,7 @@
                 </a>
               </div>
               <div class="col-3 px-1">
-                <a class="btn btn-outline-light w-100" href="javascript:;">
+                <a class="btn btn-outline-light w-100" href="{% url 'base:lobby' %}">
                   <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                       <g id="apple-black" transform="translate(7.000000, 0.564551)" fill="#000000" fill-rule="nonzero">
@@ -63,7 +63,7 @@
                 </a>
               </div>
               <div class="col-3 me-auto px-1">
-                <a class="btn btn-outline-light w-100" href="javascript:;">
+                <a class="btn btn-outline-light w-100" href="">
                   <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                       <g id="google-icon" transform="translate(3.000000, 2.000000)" fill-rule="nonzero">
@@ -120,5 +120,681 @@
     form.addEventListener('submit', handleSubmit)
 </script>
 
+{% elif call %}
+  <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2">
+      <div class="container-fluid py-1">
+        <nav aria-label="breadcrumb">
+          <br>
+          <br>
+          <br>
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
+            
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Untraceble Global Connection </li>
+          </ol>
+          <h6 class="text-white font-weight-bolder ms-2">Dashboard</h6>
+        </nav>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid">
+      <div class="page-header min-height-300 border-radius-xl mt-4" style="background-image: url('/static/assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
+        <span class="mask bg-gradient-primary opacity-6"></span>
+      </div>
+      <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
+        <div class="row gx-4">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="{{ user.image }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              
+              {% if request.user.is_authenticated %}
+              <h5 class="mb-1">
+                {{ user.username }}
+              </h5>
+              <p class="mb-0 font-weight-bold text-sm">
+                Registered User
+              </p>
+              {% else %}
+              <h5 class="mb-1">
+                Mr./Mrs. Annoymous
+              </h5>
+              <p class="mb-0 font-weight-bold text-sm">
+                Unregistered User
+              </p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0">
+              <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 active "  href="{% url 'base:index' %}" role="tab" aria-selected="true">
+                    <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg' %}" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                          <g transform="translate(1716.000000, 291.000000)">
+                            <g transform="translate(603.000000, 0.000000)">
+                              <path class="color-background" d="M22.7597136,19.3090182 L38.8987031,11.2395234 C39.3926816,10.9925342 39.592906,10.3918611 39.3459167,9.89788265 C39.249157,9.70436312 39.0922432,9.5474453 38.8987261,9.45068056 L20.2741875,0.1378125 L20.2741875,0.1378125 C19.905375,-0.04725 19.469625,-0.04725 19.0995,0.1378125 L3.1011696,8.13815822 C2.60720568,8.38517662 2.40701679,8.98586148 2.6540352,9.4798254 C2.75080129,9.67332903 2.90771305,9.83023153 3.10122239,9.9269862 L21.8652864,19.3090182 C22.1468139,19.4497819 22.4781861,19.4497819 22.7597136,19.3090182 Z">
+                              </path>
+                              <path class="color-background" d="M23.625,22.429159 L23.625,39.8805372 C23.625,40.4328219 24.0727153,40.8805372 24.625,40.8805372 C24.7802551,40.8805372 24.9333778,40.8443874 25.0722402,40.7749511 L41.2741875,32.673375 L41.2741875,32.673375 C41.719125,32.4515625 42,31.9974375 42,31.5 L42,14.241659 C42,13.6893742 41.5522847,13.241659 41,13.241659 C40.8447549,13.241659 40.6916418,13.2778041 40.5527864,13.3472318 L24.1777864,21.5347318 C23.8390024,21.7041238 23.625,22.0503869 23.625,22.429159 Z" opacity="0.7"></path>
+                              <path class="color-background" d="M20.4472136,21.5347318 L1.4472136,12.0347318 C0.953235098,11.7877425 0.352562058,11.9879669 0.105572809,12.4819454 C0.0361450918,12.6208008 6.47121774e-16,12.7739139 0,12.929159 L0,30.1875 L0,30.1875 C0,30.6849375 0.280875,31.1390625 0.7258125,31.3621875 L19.5528096,40.7750766 C20.0467945,41.0220531 20.6474623,40.8218132 20.8944388,40.3278283 C20.963859,40.1889789 21,40.0358742 21,39.8806379 L21,22.429159 C21,22.0503869 20.7859976,21.7041238 20.4472136,21.5347318 Z" opacity="0.7"></path>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <span class="ms-1">Video Call</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 "  href="{% url 'base:lobby' %}" role="tab" aria-selected="false">
+                    <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg' %}" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <title>document</title>
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                          <g transform="translate(1716.000000, 291.000000)">
+                            <g transform="translate(154.000000, 300.000000)">
+                              <path class="color-background" d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z" opacity="0.603585379"></path>
+                              <path class="color-background" d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                              </path>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <span class="ms-1">Video Conference</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 "  href="" role="tab" aria-selected="false">
+                    <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg' %}" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <title>settings</title>
+                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                          <g transform="translate(1716.000000, 291.000000)">
+                            <g transform="translate(304.000000, 151.000000)">
+                              <polygon class="color-background" opacity="0.596981957" points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667">
+                              </polygon>
+                              <path class="color-background" d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z" opacity="0.596981957"></path>
+                              <path class="color-background" d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z">
+                              </path>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <span class="ms-1">Change Password</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+        <div class="col-12 mt-4">
+          <div class="card mb-4">
+            <div class="card-header pb-0 p-3">
+              <h6 class="mb-1">Adsket</h6>
+              <p class="text-sm">Global Billboard</p>
+            </div>
+            
+    <main id="app">
+      <main>
+        <div class="container my-5">
+          <div class="row">
+            <div class="col">
+              <div class="btn-group" role="group">
+                {% for singleUser in allUsers%}
+                <button
+                  type="button"
+                  class="btn btn-primary mr-2"
+
+                  @click="placeCall('{{singleUser.id}}','{{singleUser}}')"
+                >
+                  Call {{ singleUser }}
+                  <span class="badge badge-light"
+                    >${getUserOnlineStatus({{singleUser.id}})}</span
+                  >
+                </button>
+
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <!-- Incoming Call  -->
+          <div class="row my-5" v-if="incomingCall">
+            <div class="col-12">
+              <p>Incoming Call From <strong>${ incomingCaller }</strong></p>
+              <div class="btn-group" role="group">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                  @click="declineCall"
+                >
+                  Decline
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success ml-5"
+                  @click="acceptCall"
+                >
+                  Accept
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- End of Incoming Call  -->
+        </div>
+
+          <section id="video-container" v-if="callPlaced">
+          <div id="local-video"></div>
+                      <div id="remote-video"></div>
+
+          <div class="action-btns">
+            <button
+              type="button"
+              class="btn btn-info"
+              @click="handleAudioToggle"
+            >
+              ${ mutedAudio ? "Unmute" : "Mute" }
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mx-4"
+              @click="handleVideoToggle"
+            >
+              ${ mutedVideo ? "ShowVideo" : "HideVideo" }
+            </button>
+            <button type="button" class="btn btn-danger" @click="endCall">
+              EndCall
+            </button>
+          </div>
+
+        </section>
+      </main>
+    </main>
+   
+          </div>
+        </div>
+      </div>
+    <div class="container-fluid py-4" id="app">
+      <div class="row">
+        <div class="col-12 col-xl-4">
+          <div class="card h-100">
+            <div class="card-header pb-0 p-3">
+              <h6 class="mb-0">Platform Benefits</h6>
+            </div>
+            <div class="card-body p-3">
+              
+              <ul class="list-group">
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
+                    Completely Free Just for Everyone
+                
+                </li>
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
+                    
+                    Meeting/Call is completely Private
+               
+                </li>
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
+                    
+                    End to End Encryption(No one can Listen or <br>Join Your Meeting Without Room Name
+                 
+                </li>
+              </ul>
+              
+              <ul class="list-group">
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
+                  
+                    Set Unique and Strong Room Names</label>
+                  
+                </li>
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
+                    
+                    Be waiting for platform Update
+                  
+                </li>
+                <li class="list-group-item border-0 px-0 pb-0">
+                  
+                    
+                    No Registration Or Login Required
+                 
+                </li>
+                <h6 class="mb-0"><u>Restriction</u></h6>
+                
+                <li class="list-group-item border-0 ps-0 pb-0">
+                  <strong class="text-dark text-sm">Any form of violence, racism, segregation, gossip or allegations etc will not be allowed</strong> &nbsp; liable to shutting down of meeting room or video call
+                </li>
+              </ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-xl-4">
+          <div class="card h-100">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0">Terms and Conditions</h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a href="javascript:;">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+             
+              <ul class="list-group">
+                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Clients are responsible for generating and sharing client names</strong>&nbsp; Other security issues are handled by peer company </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Ads blockers will lead to failure to join or create a meeting room</strong> &nbsp;Turn off ur Ads blockers, Our ads are few and regulated, plus used to maintain patform cost without costing you anything</li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Meeting here are not recorded and no record of it is kept</strong> &nbsp; Its like yoir meeting or video call never happened, all for Your Protection and Untracebility</li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">The company have all right reserved to maintain, upgrade or take down this platform</strong> &nbsp; Without customer agreement or even notice</li>
+                
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-xl-4">
+          <div class="card h-100">
+            <div class="card-header pb-0 p-3">
+              <h6 class="mb-0">Conversations</h6>
+            </div>
+            <div class="card-body p-3" id="app">
+              <ul class="list-group">
+                {% for singleUser in allUsers%}
+                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                  <div class="avatar me-3">
+                    <img src="{{ singleUser.photo.url }}" alt="kal" class="border-radius-lg shadow">
+                  </div>
+                  <div class="d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{ singleUser }}.</h6>
+                    <p class="mb-0 text-xs">Hi! I need more information..</p>
+                  </div>
+                  <a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">${getUserOnlineStatus({{singleUser.id}})}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- Add Scripts -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/7.0.3/pusher.min.js"></script>
+    <script>
+      window.pusher = new Pusher("420e941c25574fda6378", {
+        authEndpoint: "{% url 'base:agora-pusher-auth' %}",
+        auth: {
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+        },
+      });
+
+      const AUTH_USER = "{{user}}"
+      const AUTH_USER_ID =  "{{request.user.id}}"
+      const CSRF_TOKEN = "{{ csrf_token }}"
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{% static 'agora/index.js' %}"></script>
+    <script type="text/javascript">
+      const app = new Vue({
+    el: "#app",
+    delimiters: ["${", "}"],
+    data: {
+    callPlaced: false,
+    client: null,
+    localStream: null,
+    mutedAudio: false,
+    mutedVideo: false,
+    userOnlineChannel: null,
+    onlineUsers: [],
+    incomingCall: false,
+    incomingCaller: "",
+    agoraChannel: null,
+  },
+  mounted() {
+    this.initUserOnlineChannel();
+  },
+
+  methods: {
+    initUserOnlineChannel() {
+      const userOnlineChannel = pusher.subscribe("presence-online-channel");
+
+      // Start Pusher Presence Channel Event Listeners
+
+      userOnlineChannel.bind("pusher:subscription_succeeded", (data) => {
+        // From Laravel Echo, wrapper for Pusher Js Client
+        let members = Object.keys(data.members).map((k) => data.members[k]);
+        this.onlineUsers = members;
+      });
+
+      userOnlineChannel.bind("pusher:member_added", (data) => {
+        let user = data.info;
+        // check user availability
+        const joiningUserIndex = this.onlineUsers.findIndex(
+          (data) => data.id === user.id
+        );
+        if (joiningUserIndex < 0) {
+          this.onlineUsers.push(user);
+        }
+      });
+
+      userOnlineChannel.bind("pusher:member_removed", (data) => {
+        let user = data.info;
+        const leavingUserIndex = this.onlineUsers.findIndex(
+          (data) => data.id === user.id
+        );
+        this.onlineUsers.splice(leavingUserIndex, 1);
+      });
+
+      userOnlineChannel.bind("pusher:subscription_error", (err) => {
+        console.log("Subscription Error", err);
+      });
+
+      userOnlineChannel.bind("an_event", (data) => {
+        console.log("a_channel: ", data);
+      });
+
+      userOnlineChannel.bind("make-agora-call", (data) => {
+        // Listen to incoming call. This can be replaced with a private channel
+
+        if (parseInt(data.userToCall) === parseInt(AUTH_USER_ID)) {
+          const callerIndex = this.onlineUsers.findIndex(
+            (user) => user.id === data.from
+          );
+          this.incomingCaller = this.onlineUsers[callerIndex]["name"];
+          this.incomingCall = true;
+
+          // the channel that was sent over to the user being called is what
+          // the receiver will use to join the call when accepting the call.
+          this.agoraChannel = data.channelName;
+        }
+      });
+    },
+
+    getUserOnlineStatus(id) {
+      const onlineUserIndex = this.onlineUsers.findIndex(
+        (data) => data.id === id
+      );
+      if (onlineUserIndex < 0) {
+        return "Offline";
+      }
+      return "Online";
+    },
+
+    async placeCall(id, calleeName) {
+      try {
+        // channelName = the caller's and the callee's id. you can use anything. tho.
+        const channelName = `${AUTH_USER}_${calleeName}`;
+        const tokenRes = await this.generateToken(channelName);
+
+        // // Broadcasts a call event to the callee and also gets back the token
+        let placeCallRes = await axios.post(
+          "/call-user/",
+          {
+            user_to_call: id,
+            channel_name: channelName,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": CSRF_TOKEN,
+            },
+          }
+        );
+
+        this.initializeAgora(tokenRes.data.appID);
+        this.joinRoom(tokenRes.data.token, channelName);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async acceptCall() {
+      const tokenRes = await this.generateToken(this.agoraChannel);
+      this.initializeAgora(tokenRes.data.appID);
+
+      this.joinRoom(tokenRes.data.token, this.agoraChannel);
+      this.incomingCall = false;
+      this.callPlaced = true;
+    },
+
+    declineCall() {
+      // You can send a request to the caller to
+      // alert them of rejected call
+      this.incomingCall = false;
+    },
+
+    generateToken(channelName) {
+      return axios.post(
+        "/token/",
+        {
+          channelName,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": CSRF_TOKEN,
+          },
+        }
+      );
+    },
+
+    /**
+     * Agora Events and Listeners
+     */
+    initializeAgora(agora_app_id) {
+      this.client = AgoraRTC.createClient({ mode: "rtc", codec: "h264" });
+      this.client.init(
+        agora_app_id,
+        () => {
+          console.log("AgoraRTC client initialized");
+        },
+        (err) => {
+          console.log("AgoraRTC client init failed", err);
+        }
+      );
+    },
+
+    async joinRoom(token, channel) {
+      this.client.join(
+        token,
+        channel,
+        AUTH_USER,
+        (uid) => {
+          console.log("User " + uid + " join channel successfully");
+          this.callPlaced = true;
+          this.createLocalStream();
+          this.initializedAgoraListeners();
+        },
+        (err) => {
+          console.log("Join channel failed", err);
+        }
+      );
+    },
+
+    initializedAgoraListeners() {
+      //   Register event listeners
+      this.client.on("stream-published", function (evt) {
+        console.log("Publish local stream successfully");
+        console.log(evt);
+      });
+
+      //subscribe remote stream
+      this.client.on("stream-added", ({ stream }) => {
+        console.log("New stream added: " + stream.getId());
+        this.client.subscribe(stream, function (err) {
+          console.log("Subscribe stream failed", err);
+        });
+      });
+
+      this.client.on("stream-subscribed", (evt) => {
+        // Attach remote stream to the remote-video div
+
+        console.log("incoming remote stream event: ", evt);
+
+        evt.stream.play("remote-video");
+        this.client.publish(evt.stream);
+      });
+
+      this.client.on("stream-removed", ({ stream }) => {
+        console.log(String(stream.getId()));
+        stream.close();
+      });
+
+      this.client.on("peer-online", (evt) => {
+        console.log("peer-online", evt.uid);
+      });
+
+      this.client.on("peer-leave", (evt) => {
+        var uid = evt.uid;
+        var reason = evt.reason;
+        console.log("remote user left ", uid, "reason: ", reason);
+      });
+
+      this.client.on("stream-unpublished", (evt) => {
+        console.log(evt);
+      });
+    },
+
+    createLocalStream() {
+      this.localStream = AgoraRTC.createStream({
+        audio: true,
+        video: true,
+      });
+
+      // Initialize the local stream
+      this.localStream.init(
+        () => {
+          // Play the local stream
+          this.localStream.play("local-video");
+          // Publish the local stream
+          this.client.publish(this.localStream, (err) => {
+            console.log("publish local stream", err);
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    },
+
+    endCall() {
+      this.localStream.close();
+      this.client.leave(
+        () => {
+          console.log("Leave channel successfully");
+          this.callPlaced = false;
+        },
+        (err) => {
+          console.log("Leave channel failed");
+        }
+      );
+      window.pusher.unsubscribe();
+    },
+
+    handleAudioToggle() {
+      if (this.mutedAudio) {
+        this.localStream.unmuteAudio();
+        this.mutedAudio = false;
+      } else {
+        this.localStream.muteAudio();
+        this.mutedAudio = true;
+      }
+    },
+
+    handleVideoToggle() {
+      if (this.mutedVideo) {
+        this.localStream.unmuteVideo();
+        this.mutedVideo = false;
+      } else {
+        this.localStream.muteVideo();
+        this.mutedVideo = true;
+      }
+    },
+  },
+});
+
+    </script>
+    <style type="text/css">
+      main {
+  margin-top: 50px;
+}
+
+#video-container {
+  width: 700px;
+  height: 500px;
+  max-width: 90vw;
+  max-height: 50vh;
+  margin: 0 auto;
+  border: 1px solid #099dfd;
+  position: relative;
+  box-shadow: 1px 1px 11px #9e9e9e;
+  background-color: #fff;
+}
+
+#local-video {
+  width: 30%;
+  height: 30%;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  border: 1px solid #fff;
+  border-radius: 6px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#remote-video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.action-btns {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  margin-left: -50px;
+  z-index: 3;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+    </style>
+    {% endif %}
 {% endblock %}
+
+
+
+
 

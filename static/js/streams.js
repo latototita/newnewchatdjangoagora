@@ -21,6 +21,7 @@ let joinAndDisplayLocalStream = async () => {
         UID = await client.join(APP_ID, CHANNEL, TOKEN, UID)
     }catch(error){
         console.error(error)
+        alert("No Room With Such a name,Pleas Use a correct Room name");
         window.open('/', '_self')
     }
     
@@ -86,6 +87,7 @@ let leaveAndRemoveLocalStream = async () => {
     await client.leave()
     //This is somewhat of an issue because if user leaves without actaull pressing leave button, it will not trigger
     deleteMember()
+
     window.open('/', '_self')
 }
 
