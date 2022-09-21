@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-cly%(5-34f8d1pc_fi*l_p@m3^x%#a$!iq(yu=s&&ez%-_pk$3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+'''
 SESSION_COOKIE_DOMAIN = '.peermax.xyz'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -37,7 +37,7 @@ SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-
+'''
 ALLOWED_HOSTS = ['*','.peermax.xyz','www.peermax.xyz','peermax.xyz','127.0.0.1','159.65.51.180','localhost']
 
 # Application definition
@@ -82,12 +82,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mychat.wsgi.application'
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pearlmartdb',
-        'USER': 'pearlmart',
+        'NAME': 'peermaxdb',
+        'USER': 'peermax',
         'PASSWORD': '1234$Victoria',
         'HOST': 'localhost',
         'PORT': '',
@@ -104,7 +104,7 @@ DATABASES = {
     }
 }
 
-
+'''
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 '''
