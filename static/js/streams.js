@@ -25,13 +25,16 @@ let joinAndDisplayLocalStream = async () => {
         window.open('/', '_self')
     }
     
-    localTracks = await AgoraRTC.createMicrophoneAndCameraTracks()
+    localTracks = await AgoraRTC.createMicrophoneAndCameraTracks({
+        encoderConfig: "1080_1",
+    })
+    
     let member = await createMember()
 
     let player = `<div style="
-  border: 3px solid #73AD21;" class="video-container " id="user-container-${UID}">
+  border: 1px;" class="video-container " id="user-container-${UID}">
                      <div style="
-  border: 3px solid #73AD21;"  class="video-player " id="user-${UID}"></div>
+  border: 1px ;"  class="video-player " id="user-${UID}"></div>
                      <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
                   </div>
                   `
@@ -56,10 +59,10 @@ let handleUserJoined = async (user, mediaType) => {
         player = `
         <div  style=" 
   
-  border: 3px solid #73AD21;"  class="video-container " id="user-container-${user.uid}">
+  border: 1px ;"  class="video-container " id="user-container-${user.uid}">
             <div style="
   
-  border: 3px solid #73AD21;"   class="video-player " id="user-${user.uid}"></div>
+  border: 1px ;"   class="video-player " id="user-${user.uid}"></div>
             <div class="username-wrapper"><span class="user-name">${member.name}</span></div>
         </div>
         `

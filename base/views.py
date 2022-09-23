@@ -179,7 +179,7 @@ def search_user(request):
 
 
 
-@login_required(login_url='base:login')
+#@login_required(login_url='base:login')
 def index(request):
     User = get_user_model()
     all_users = User.objects.exclude(id=request.user.id).only('id', 'username')
