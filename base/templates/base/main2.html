@@ -30,7 +30,7 @@
     />
     <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.3.1.js"></script>
   <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
-  <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+  <link rel="icon" type="image/png" style="background-color: transparent;" href="{% static 'favicon.png' %}">
 
   <title>
     Peermax 
@@ -39,6 +39,8 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"  rel="stylesheet" />
   <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
   <script src="{% static 'js/main.js' %}"></script>
+  <link rel='stylesheet' type='text/css' media='screen' href="{% static 'styles/main.css' %}">
+    <script src="{% static 'js/main.js' %}"></script>
   <style type="text/css">
   
 /*!
@@ -24986,33 +24988,38 @@ pre[class*="language-"] {
             </button>
             <div class="collapse navbar-collapse" id="navigation">
               <ul class="navbar-nav mx-auto">
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="{% url 'base:dashboard' %}">
+                  <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="/dashboard">
                     <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
                     Dashboard
                   </a>
                 </li>
+                
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="{% url 'base:index' %}">
-                    <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                    Profile
+                  <a class="nav-link me-2" href="{% url 'base:logout' %}">
+                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
+                    Log Out
                   </a>
                 </li>
+                {% else %}
                 <li class="nav-item">
                   <a class="nav-link me-2" href="{% url 'base:signup' %}">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
-                    Sign Up
+                    Register
                   </a>
                 </li>
+
                 <li class="nav-item">
                   <a class="nav-link me-2" href="{% url 'base:login' %}">
                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
-                    Sign In
+                    Login
                   </a>
                 </li>
+                {% endif %}
               <br>
                 <li class="nav-item">
-                  <a href="#" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">Download App</a>
+                  <a href="{% url 'base:lobby' %}" class="btn btn-sm btn-round mb-0 me-1 bg-gradient-dark">Join/Create Meeting</a>
                 </li>
               </ul>
             </div>
@@ -25025,19 +25032,16 @@ pre[class*="language-"] {
   {% include 'base/messages.html' %}
 {% block content %}
 {% endblock %}
-<!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+
   <footer class="footer py-5">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mb-4 mx-auto text-center">
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+          <a href="{% url 'base:terms' %}" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
             Terms and Conditions
           </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Privacy
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Pricing
+          <a href="{% url 'base:lobby' %}" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+            Join/Create Meeting
           </a>
         </div>
         

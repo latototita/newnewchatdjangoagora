@@ -1,7 +1,7 @@
 {% extends 'base/main2.html' %}
 {% load static %}
 {% block content %}
-
+<main class="main-content  mt-0">
   <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg bg-transparent shadow-none position-absolute px-4 w-100 z-index-2">
@@ -149,11 +149,9 @@
         <div class="row gx-4">
           <div class="col-auto">
             <div class="avatar avatar-xl position-relative">
-              {% if request.user.image %}
-              <img src="{{ request.user.image.url }}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-              {% else %}
-              <img src="" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
-              {% endif %}
+             
+              <img src="{{ image }}" alt="" class="w-100 border-radius-lg shadow-sm">
+              
             </div>
           </div>
           <div class="col-auto my-auto">
@@ -180,7 +178,7 @@
             <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 active "  href="{% url 'base:room' %}" role="tab" aria-selected="true">
+                  <a class="nav-link mb-0 px-0 py-1 active "  href="{% url 'base:terms' %}" role="tab" aria-selected="true">
                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg' %}" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
@@ -195,7 +193,7 @@
                         </g>
                       </g>
                     </svg>
-                    <span class="ms-1">Video Call</span>
+                    <span class="ms-1">Terms and Conditions</span>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -258,18 +256,7 @@
                     <div class="card-body d-flex flex-column justify-content-center text-center">
                       <a href="{% url 'base:room' %}">
                         <i class="fa fa-plus text-secondary mb-3"></i>
-                        <h5 class=" text-secondary"> Join Schedule Conference(Meeting) </h5>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-
-                  <div class="card h-100 card-plain border">
-                    <div class="card-body d-flex flex-column justify-content-center text-center">
-                      <a href="{% url 'base:room' %}">
-                        <i class="fa fa-plus text-secondary mb-3"></i>
-                        <h5 class=" text-secondary"> Make a Video Call </h5>
+                        <h5 class=" text-secondary"> Join or Schedule Conference(Meeting) </h5>
                       </a>
                     </div>
                   </div>
@@ -279,55 +266,141 @@
           </div>
         </div>
       </div>
-    <div class="container-fluid py-4">
+    </div>
+  </div>    
+<main id="app">
+      <main>
+        <div class="container my-5">
+          <div class="row">
+              <div class="btn-group" role="group">
+               
+                {% for singleUser in allUsers%}
+                <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
+                  <div class="avatar avatar-xl position-relative">
+                    <img src="{{singleUser.image}}" alt="" class="w-100 border-radius-lg shadow-sm" >
+                  </div>
+                  <div class="d-flex align-items-start flex-column justify-content-center">
+                    <h6 class="mb-0 text-sm">{{ singleUser }}.</h6>
+                    <p class="mb-0 text-xs">Call me if Online..</p>
+                  </div>
+                  <button
+                  type="button"
+                  class="btn btn-primary mr-2"
+
+                  @click="placeCall('{{singleUser.id}}','{{singleUser}}')"
+                >${getUserOnlineStatus({{singleUser.id}})}</button>
+                </div>
+                {% endfor %}
+              
+            
+          </div>
+
+          <!-- Incoming Call  -->
+          <div class="row my-5" v-if="incomingCall">
+            <div class="col-12">
+              <p>Incoming Call From <strong>${ incomingCaller }</strong></p>
+              <div class="btn-group" role="group">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-dismiss="modal"
+                  @click="declineCall"
+                >
+                  Decline
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success ml-5"
+                  @click="acceptCall"
+                >
+                  Accept
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- End of Incoming Call  -->
+         <section id="video-container" v-if="callPlaced">
+          <div id="local-video" class="avatar avatar-xl position-relative"></div>
+          <div id="remote-video"></div>
+
+          <div class="action-btns">
+            <button
+              type="button"
+              class="btn btn-info"
+              @click="handleAudioToggle"
+            >
+              ${ mutedAudio ? "Unmute" : "Mute" }
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary mx-4"
+              @click="handleVideoToggle"
+            >
+              ${ mutedVideo ? "ShowVideo" : "HideVideo" }
+            </button>
+            <button type="button" class="btn btn-danger" @click="endCall">
+              EndCall
+            </button>
+          </div>
+
+        </section>
+      </main>
+    </main>
+
+    <div class="container-fluid py-4" id="app">
       <div class="row">
         <div class="col-12 col-xl-4">
           <div class="card h-100">
             <div class="card-header pb-0 p-3">
-              <h6 class="mb-0">Platform Settings</h6>
+              <h6 class="mb-0"><u>Platform Benefits</u></h6>
             </div>
             <div class="card-body p-3">
-              <h6 class="text-uppercase text-body text-xs font-weight-bolder">Account</h6>
+              
               <ul class="list-group">
-                <li class="list-group-item border-0 px-0">
-                  <div class="form-check form-switch ps-0">
-                    
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">No data Save with Us</label>
-                  </div>
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
+                    Completely Free Just for Everyone
+                
                 </li>
-                <li class="list-group-item border-0 px-0">
-                  <div class="form-check form-switch ps-0">
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
                     
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault1">Meeting/Call is completely Private</label>
-                  </div>
+                    Meeting/Call is completely Private
+               
                 </li>
-                <li class="list-group-item border-0 px-0">
-                  <div class="form-check form-switch ps-0">
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
                     
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">End to End Encryption(No one can Listen or Join You Call</label>
-                  </div>
+                    End to End Encryption(No one can Listen or <br>Join Your Meeting Without Room Name
+                 
                 </li>
               </ul>
-              <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Application</h6>
+              
               <ul class="list-group">
-                <li class="list-group-item border-0 px-0">
-                  <div class="form-check form-switch ps-0">
+                <li class="list-group-item border-0 ps-0 text-sm">
                   
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault3">Set Unique and Strong Room Names</label>
-                  </div>
+                  
+                    Set Unique and Strong Room Names</label>
+                  
                 </li>
-                <li class="list-group-item border-0 px-0">
-                  <div class="form-check form-switch ps-0">
+                <li class="list-group-item border-0 ps-0 text-sm">
+                  
                     
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault4">Monthly product updates</label>
-                  </div>
+                    Be waiting for platform Update
+                  
                 </li>
                 <li class="list-group-item border-0 px-0 pb-0">
-                  <div class="form-check form-switch ps-0">
+                  
                     
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault5">Subscribe to newsletter</label>
-                  </div>
+                    No Registration Or Login Required
+                 
                 </li>
+                <h6 class="mb-0"><u>Restriction</u></h6>
+                
+                <li class="list-group-item border-0 ps-0 pb-0">
+                  <strong class="text-dark text-sm">Any form of violence, racism, segregation, gossip or allegations etc will not be allowed</strong> &nbsp; liable to shutting down of meeting room or video call
+                </li>
+              </ul>
               </ul>
             </div>
           </div>
@@ -336,8 +409,10 @@
           <div class="card h-100">
             <div class="card-header pb-0 p-3">
               <div class="row">
+                        <br>
+        <br>
                 <div class="col-md-8 d-flex align-items-center">
-                  <h6 class="mb-0">Profile Information</h6>
+                  <h6 class="mb-0"><u>Terms and Conditions</u></h6>
                 </div>
                 <div class="col-md-4 text-end">
                   <a href="javascript:;">
@@ -347,42 +422,28 @@
               </div>
             </div>
             <div class="card-body p-3">
-              <p class="text-sm">
-                Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
-              </p>
-              <hr class="horizontal gray-light my-4">
+             
               <ul class="list-group">
-                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; Alec M. Thompson</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; alecthompson@mail.com</li>
-                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
-                <li class="list-group-item border-0 ps-0 pb-0">
-                  <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                  <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-facebook fa-lg"></i>
-                  </a>
-                  <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-twitter fa-lg"></i>
-                  </a>
-                  <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                    <i class="fab fa-instagram fa-lg"></i>
-                  </a>
-                </li>
-              </ul>
+                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Clients are responsible for generating and sharing client names</strong>&nbsp; Other security issues are handled by peer company </li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Ads blockers will lead to failure to join or create a meeting room</strong> &nbsp;Turn off ur Ads blockers, Our ads are few and regulated, plus used to maintain patform cost without costing you anything</li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Meeting here are not recorded and no record of it is kept</strong> &nbsp; Its like yoir meeting or video call never happened, all for Your Protection and Untracebility</li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">The company have all right reserved to maintain, upgrade or take down this platform</strong> &nbsp; Without customer agreement or even notice</li>
+                
             </div>
           </div>
         </div>
+        <!--
         <div class="col-12 col-xl-4">
           <div class="card h-100">
             <div class="card-header pb-0 p-3">
               <h6 class="mb-0">Conversations</h6>
             </div>
-            <div class="card-body p-3" id="app">
+            <div class="card-body p-3" id="app1">
               <ul class="list-group">
                 {% for singleUser in allUsers%}
                 <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
                   <div class="avatar me-3">
-                    <img src="{{ singleUser.photo.url }}" alt="kal" class="border-radius-lg shadow">
+                    <img src="{{ singleUser.image }}" alt="kal" class="border-radius-lg shadow">
                   </div>
                   <div class="d-flex align-items-start flex-column justify-content-center">
                     <h6 class="mb-0 text-sm">{{ singleUser }}.</h6>
@@ -392,6 +453,31 @@
                 </li>
                 {% endfor %}
               </ul>
+            </div>
+          </div>
+        </div>-->
+        <div class="col-12 col-xl-4">
+          <div class="card h-100">
+            <div class="card-header pb-0 p-3">
+              <div class="row">
+                <div class="col-md-8 d-flex align-items-center">
+                  <h6 class="mb-0"><u>Privacy Terms</u></h6>
+                </div>
+                <div class="col-md-4 text-end">
+                  <a href="javascript:;">
+                    <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-3">
+             
+              <ul class="list-group">
+                <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Each single Meeting room is independent from the Other </strong>&nbsp;Un invited guess can't Join Unlesshaving the secret room name</li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">For registered Users</strong> &nbsp;No one has access to ur registration/login credentials, not even company</li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">No information sharing policy</strong> &nbsp; No information is shared with any other third party</li>
+                <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Each meeting room and its info exist only for the meeting time and later is deleted completely immediatly the meeting ends</strong> &nbsp; Without customer agreement or even notice</li>
+                
             </div>
           </div>
         </div>
@@ -414,11 +500,29 @@
       const CSRF_TOKEN = "{{ csrf_token }}"
     </script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js""
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="{% static 'agora/index.js' %}"></script>
     <script type="text/javascript">
+      const app1 = new Vue({
+  el: "#app1",
+  delimiters: ["${", "}"],
+  data: {
+    callPlaced: false,
+    client: null,
+    localStream: null,
+    mutedAudio: false,
+    mutedVideo: false,
+    userOnlineChannel: null,
+    onlineUsers: [],
+    incomingCall: false,
+    incomingCaller: "",
+    agoraChannel: null,
+  },
+  mounted() {
+    this.initUserOnlineChannel();
+  },
       const app = new Vue({
   el: "#app",
   delimiters: ["${", "}"],

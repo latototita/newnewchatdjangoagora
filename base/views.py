@@ -91,6 +91,8 @@ def deleteMember(request):
     )
     member.delete()
     return JsonResponse('Member deleted', safe=False)
+
+
 @login_required(login_url='base:login')
 def dashboard(request):
     if request.user.is_authenticated:
@@ -99,7 +101,9 @@ def dashboard(request):
         user=None
 
     all_users = User.objects.all()#exclude(id=request.user.id).only('id', 'username')
-    context={'user':user,'allUsers': all_users}
+    user=User.objects.get(id=request.user.id)
+    image=user.image
+    context={'image':image,'user':user,'allUsers': all_users}
     
     return render(request,'base/profile.html',context)
 
@@ -126,6 +130,8 @@ def signin(request):
             return render(request,'base/sign-in.html',context)
     context={}
     return render(request,'base/sign-in.html',context)
+
+DEFAULT = '/static/default.jpg'
 def signup(response):
     if response.method=="POST":
         form=RegistrationForm(response.POST)
@@ -136,7 +142,10 @@ def signup(response):
             elif User.objects.filter(username=form.cleaned_data['username']):
                 messages.success(response, f'Username already in use, Please use a different Username')
                 return render(response,'signup.html',)
-            form.save()
+
+            feed_back=form.save(commit=False)
+            feed_back.image=DEFAULT
+            feed_back.save()
             messages.success(response, f'Successfully Registered,Please log into your Account to Make Orders')
             return redirect('base:login')
     else:
@@ -163,7 +172,7 @@ def changepic(request):
         else:
             messages.success(request, f'Form Invalid')
             return redirect('changepic')
-
+    
     context={'form':form}
     return render(response,'base/change.html',context)
 
@@ -234,3 +243,9 @@ def call_user(request):
         }
     )
     return JsonResponse({'message': 'call has been placed'})
+
+
+
+def terms(request):
+    context={}
+    return render(request, 'base/terms.html', context)

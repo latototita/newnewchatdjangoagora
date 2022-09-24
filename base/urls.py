@@ -17,4 +17,5 @@ urlpatterns = [
     path('signup',views.signup,name='signup'),
     path('get_member/', views.getMember),
     path('delete_member/', views.deleteMember),
+    path('terms', views.terms,name='terms'),
 ]

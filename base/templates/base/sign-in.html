@@ -1,4 +1,4 @@
-{% extends 'base/main.html' %}
+{% extends 'base/main2.html' %}
 {% load static %}
 {% block content %}
   <main class="main-content  mt-0">
@@ -35,10 +35,11 @@
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <a href="javascript:;" class="text-info text-gradient font-weight-bold">Sign up</a>
+                    <a href="{% url 'base:signup' %}" class="text-info text-gradient font-weight-bold">Sign up</a>
                   </p>
                 </div>
             </div>
+             <!--
             <div class="row px-xl-5 px-sm-4 px-3">
               <div class="col-3 ms-auto px-1">
                 <a class="btn btn-outline-light w-100" href="javascript:;">
@@ -82,7 +83,7 @@
                   or
                 </p>
               </div>
-          </div>
+          </div>-->
         </div>
             <div class="col-md-6">
               <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
