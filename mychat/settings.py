@@ -27,8 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-cly%(5-34f8d1pc_fi*l_p@m3^x%#a$!iq(yu=s&&ez%-_pk$3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-'''
+DEBUG = True
+
 SESSION_COOKIE_DOMAIN = '.peermax.xyz'
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -37,8 +37,8 @@ SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 31536000 # 1 year
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-'''
-ALLOWED_HOSTS = ['*','.peermax.xyz','www.peermax.xyz','peermax.xyz','127.0.0.1']
+
+ALLOWED_HOSTS = ['*','.peermax.xyz','www.peermax.xyz','peermax.xyz','127.0.0.1','localhost']
 
 # Application definition
 
@@ -82,7 +82,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mychat.wsgi.application'
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -103,7 +103,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
+
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
